@@ -1,0 +1,37 @@
+[workspace]
+members = ["crates/wmc-core", "crates/wmc-render", "crates/wmc-component"]
+resolver = "2"
+
+[workspace.package]
+version = "0.1.0"
+authors = ["RAprogramm <andrey.rozanov.vl@gmail.com>"]
+edition = "2024"
+license = "MIT"
+repository = "https://github.com/RAprogramm/wmc"
+
+[workspace.dependencies]
+masterror = "0.25"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+
+[workspace.lints.rust]
+unsafe_code = "deny"
+missing_docs = "warn"
+
+[workspace.lints.clippy]
+all = { level = "deny", priority = -1 }
+pedantic = { level = "warn", priority = -1 }
+nursery = { level = "warn", priority = -1 }
+unwrap_used = "deny"
+expect_used = "deny"
+
+[profile.release]
+lto = true
+codegen-units = 1
+opt-level = 3
+strip = true
+panic = "abort"
+
+[profile.dev]
+opt-level = 0
+debug = true

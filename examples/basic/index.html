@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>World Map Component - Basic Example</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            background: #0a0e10;
+            color: #e0e0e0;
+            overflow: hidden;
+        }
+
+        #app {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .info {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 300px;
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 0.9rem;
+            line-height: 1.5;
+            opacity: 0.8;
+        }
+
+        .status {
+            margin-top: 15px;
+            padding: 10px;
+            background: rgba(0, 255, 100, 0.1);
+            border-radius: 4px;
+            border-left: 3px solid #00ff64;
+        }
+
+        .error {
+            background: rgba(255, 50, 50, 0.1);
+            border-left-color: #ff3232;
+        }
+    </style>
+</head>
+<body>
+    <div class="info">
+        <h1>World Map Component</h1>
+        <p>Blazing-fast WebGL world map visualization built with Rust + WASM + Leptos</p>
+        <div class="status" id="status">Loading...</div>
+    </div>
+
+    <div id="app"></div>
+
+    <script type="module">
+        import init, { WorldMap } from './pkg/wmc_component.js';
+
+        const status = document.getElementById('status');
+        const app = document.getElementById('app');
+
+        async function run() {
+            try {
+                status.textContent = 'Initializing WASM...';
+                await init();
+
+                status.textContent = 'Creating canvas...';
+                const canvas = document.createElement('canvas');
+                canvas.width = 1920;
+                canvas.height = 1080;
+                canvas.style.width = '100%';
+                canvas.style.height = '100%';
+                app.appendChild(canvas);
+
+                status.textContent = 'Initializing renderer...';
+                const worldMap = new WorldMap(canvas);
+
+                status.textContent = 'Rendering...';
+                worldMap.render();
+
+                status.textContent = '✓ Ready';
+                status.className = 'status';
+            } catch (e) {
+                status.textContent = `Error: ${e.message}`;
+                status.className = 'status error';
+                console.error('Failed to initialize:', e);
+            }
+        }
+
+        run();
+    </script>
+</body>
+</html>

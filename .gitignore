@@ -1,0 +1,9 @@
+/target
+/pkg
+Cargo.lock
+*.swp
+*.swo
+.DS_Store
+node_modules/
+dist/
+*.log

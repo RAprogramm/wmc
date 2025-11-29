@@ -1,0 +1,40 @@
+[package]
+name = "wmc-component"
+version.workspace = true
+authors.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[package.metadata.wasm-pack.profile.release]
+wasm-opt = false
+
+[dependencies]
+wmc-core = { path = "../wmc-core" }
+wmc-render = { path = "../wmc-render" }
+masterror.workspace = true
+wasm-bindgen = "0.2.105"
+console_error_panic_hook = "0.1"
+
+[dependencies.web-sys]
+version = "0.3.82"
+features = [
+    "HtmlCanvasElement",
+    "MouseEvent",
+    "TouchEvent",
+    "KeyboardEvent",
+    "WheelEvent",
+    "Performance",
+    "Window",
+    "Document",
+    "Element",
+    "CustomEvent",
+    "CustomEventInit",
+    "EventTarget",
+]
+
+[lints]
+workspace = true

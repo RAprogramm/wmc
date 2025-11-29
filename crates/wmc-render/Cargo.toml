@@ -1,0 +1,32 @@
+[package]
+name = "wmc-render"
+version.workspace = true
+authors.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+
+[dependencies]
+wmc-core = { path = "../wmc-core" }
+masterror.workspace = true
+wasm-bindgen = "0.2.105"
+
+[dependencies.web-sys]
+version = "0.3.82"
+features = [
+    "WebGl2RenderingContext",
+    "WebGlProgram",
+    "WebGlShader",
+    "WebGlBuffer",
+    "WebGlUniformLocation",
+    "WebGlTexture",
+    "WebGlFramebuffer",
+    "WebGlRenderbuffer",
+    "WebGlVertexArrayObject",
+    "HtmlCanvasElement",
+    "Performance",
+    "console",
+]
+
+[lints]
+workspace = true
